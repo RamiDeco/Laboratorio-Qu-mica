@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+
+</head>
+<body>
+    <!-- Encabezado con logos -->
+    <header>
+        <nav class="navegacion">
+            <a href="#"><img src="https://media-exp1.licdn.com/dms/image/C4E0BAQHkyc2gkOpUKA/company-logo_200_200/0/1538100420867?e=2159024400&v=beta&t=vlSFn5-DmShWIU7aEMNyQxst1EocSTEj-Ly_U672YXk" alt="Logo 2" class="logo"></a>
+            <a href="{{ url_for('logout') }}">Cerrar Sesion</a>
+        </nav>
+    </header>
+
+    <div class="main-container">
+        <!-- Panel izquierdo: Gráfico -->
+        <div class="left-panel">
+            <canvas id="temperatureChart"></canvas>
+        </div>
+
+        <!-- Panel derecho: Video y Tabla -->
+        <div class="right-panel">
+            <!-- Video -->
+            <div class="box">
+                <iframe src="https://www.youtube.com/embed/VbDx4-8VEgs?autoplay=1&mute=1" frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+
+            <!-- Tabla -->
+            <div class="box">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tiempo</th>
+                            <th>Temperatura (°C)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="dataTable">
+                        <!-- Datos se agregarán aquí dinámicamente -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/grafico.js"></script>
+    <script src="/static/tabla.js"></script>
+</body>
+</html>

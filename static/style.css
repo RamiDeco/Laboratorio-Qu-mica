@@ -1,0 +1,112 @@
+/* Estilo global */
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background: linear-gradient(135deg, #f1f3f4, #d9e4f5);
+}
+
+/* Contenedor principal */
+.main-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    background: #ffffff;
+    overflow: hidden;
+    height: 100vh;
+}
+
+/* Panel izquierdo: Gráfico */
+.left-panel {
+    flex: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #eaf2f8;
+    box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.05);
+}
+
+/* Panel derecho: Video y Tabla */
+.right-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: #f9f9f9;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+/* Caja del video y la tabla */
+.box {
+    flex: 1;
+    margin: 5px;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: #ffffff;
+    overflow-y: auto;
+    /* Habilitar scroll vertical */
+}
+
+/* Tabla */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+th,
+td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    font-size: 16px;
+}
+
+th {
+    background-color: #a7bbc7;
+    /* Gris claro */
+    color: white;
+}
+
+td {
+    background-color: #f3f3f3;
+    /* Tono gris suave */
+}
+
+/* Limitar la altura de la tabla */
+.box table {
+    max-height: 300px;
+    /* Altura máxima ajustable */
+}
+
+/* Encabezado con logos */
+.navegacion {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px; /* Añadir espacio interior */
+    box-sizing: border-box; /* Asegura que padding no expanda el ancho */
+}
+header {
+    width: 100%;
+    background-color: #ffffff;
+}
+.logo {
+    max-width: 80px;
+    height: auto;
+}
+.navegacion a {
+    text-decoration: none;
+    font-size: 18px;
+    color: #333;
+}
+
