@@ -18,19 +18,19 @@ from flask_bcrypt import Bcrypt
 # If code is stopped during active it will stay active
 # This may produce a warning if restarted, this
 # line prevents that.
-# GPIO.setwarnings(False)
+GPIO.setwarnings(False)
 # This means we will refer to the GPIO
 # by the number after GPIO.
-# GPIO.setmode(GPIO.BCM)
+GPIO.setmode(GPIO.BCM)
 # This sets up the GPIO 18 pin as an output pin
-# GPIO.setup(18, GPIO.OUT)
+GPIO.setup(18, GPIO.OUT)
 
-# Create sensor object, communicating over the board's default SPI bus
-# spi = board.SPI()
-# cs = digitalio.DigitalInOut(board.D5)  # Chip select of the MAX31865 board.
-# sensor = adafruit_max31865.MAX31865(spi, cs)
-# sensor = adafruit_max31865.MAX31865(spi, cs, rtd_nominal=1025, ref_resistor=4301, wires=2)
-# bandera = True
+ #Create sensor object, communicating over the board's default SPI bus
+ spi = board.SPI()
+ cs = digitalio.DigitalInOut(board.D5)  # Chip select of the MAX31865 board.
+ sensor = adafruit_max31865.MAX31865(spi, cs)
+ sensor = adafruit_max31865.MAX31865(spi, cs, rtd_nominal=1025, ref_resistor=4301, wires=2)
+ bandera = False
 
 # SECCION FLASK QUE PRENDE O APAGA EL CALENTADOR
 
@@ -38,20 +38,27 @@ app = Flask(__name__)
 CORS(app)
 
 # # SECCION DE CODIGO QUE DEVUELVE EL VALOR DE TEMPERATURA
-# @app.route('/data')
-# def obtenerTemperatura():
-#     temp = random.uniform(15,40)
+ @app.route('/data')
+ def obtenerTemperatura():
+     temp = 0.13 * sensor.resistance -104.62
+     if temp > 46:
+        GPIO.output(18, 1) #Apagar rele
+        bandera = False
+     data = {
+         'timestamp': time.time(),
+         'value': temp
+     }
+     return jsonify(data)
 
-#     if temp > 40:
-#         GPIO.output(18, 1)  # Apagar el rele
-#     else:
-#         GPIO.output(18, 0)  # Encender el rele
-
-#     data = {
-#         'timestamp': time.time(),
-#         'value': temp
-#     }
-#     return jsonify(data)
+@app.route('/rele')
+def manejarRele():
+    if temp < 30 and not bandera:
+        GPIO.output(18, 0)  # Encender el rele
+        bandera = True
+        data = {
+            'value': 1
+        }
+     return jsonify(data)
 
 # SECCION DE CODIGO ENCARGADA DE LA COMUNICACION ENTRE
 # LA RB QUE ES SERVIDOR Y EL USUARIO

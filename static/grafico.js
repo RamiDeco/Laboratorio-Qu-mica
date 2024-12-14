@@ -30,7 +30,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 },
                 y: {
-                    beginAtZero: true,
+                    min: 20,
+                    max: 60,
+                    ticks: {
+                        stepSize: 5
+                    },
                     title: {
                         display: true,
                         text: 'Temperatura (°C)'
@@ -42,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Función para actualizar el gráfico con los nuevos datos
     function updateChart() {
-        fetch('http://192.168.100.247:3000/data')
+        fetch('http://192.168.21.178:8080/data')
             .then(response => response.json())
             .then(data => {
                 const now = new Date();
@@ -56,8 +60,20 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Actualizar el gráfico cada 5 segundos
-    setInterval(updateChart, 15000);
+   
 
+    const boton = document.getElementById('inicioRLE');
+    boton.addEventListener('click', () =>{
+        fetch('http://192.168.21.178:8080/rele')
+        .then(response => response.json())
+            .then(data => {
+                if (data.value == 1) {
+                    data = [];
+                }
+                temperatureChart.update();
+            })
+    })
     // Actualizar el gráfico inmediatamente al cargar la página
-    updateChart();
+        updateChart();
+        setInterval(updateChart, 5000);
 });
